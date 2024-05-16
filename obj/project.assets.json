@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "/Users/mailitg/.nuget/packages/": {}
+    "/home/stantenik/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/TransConnect.csproj",
+      "projectUniqueName": "/home/stantenik/Documents/GitHub/School/MailiTransConnect/TransConnect.git~/TransConnect/main/TransConnect.csproj",
       "projectName": "TransConnect",
-      "projectPath": "/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/TransConnect.csproj",
-      "packagesPath": "/Users/mailitg/.nuget/packages/",
-      "outputPath": "/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/obj/",
+      "projectPath": "/home/stantenik/Documents/GitHub/School/MailiTransConnect/TransConnect.git~/TransConnect/main/TransConnect.csproj",
+      "packagesPath": "/home/stantenik/.nuget/packages/",
+      "outputPath": "/home/stantenik/Documents/GitHub/School/MailiTransConnect/TransConnect.git~/TransConnect/main/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/mailitg/.nuget/NuGet/NuGet.Config"
+        "/home/stantenik/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/245/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
