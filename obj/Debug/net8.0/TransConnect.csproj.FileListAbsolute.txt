@@ -1,0 +1,28 @@
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/obj/Debug/net8.0/TransConnect.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/obj/Debug/net8.0/TransConnect.AssemblyInfoInputs.cache
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/obj/Debug/net8.0/TransConnect.AssemblyInfo.cs
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/obj/Debug/net8.0/TransConnect.csproj.CoreCompileInputs.cache
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/bin/Debug/net8.0/TransConnect.exe
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/bin/Debug/net8.0/TransConnect.deps.json
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/bin/Debug/net8.0/TransConnect.runtimeconfig.json
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/bin/Debug/net8.0/TransConnect.dll
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/bin/Debug/net8.0/TransConnect.pdb
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/obj/Debug/net8.0/TransConnect.dll
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/obj/Debug/net8.0/refint/TransConnect.dll
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/obj/Debug/net8.0/TransConnect.pdb
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/obj/Debug/net8.0/TransConnect.genruntimeconfig.cache
+C:/Users/Maïli/OneDrive - De Vinci/td/c#/TransConnect/TransConnect/obj/Debug/net8.0/ref/TransConnect.dll
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/obj/Debug/net8.0/TransConnect.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/obj/Debug/net8.0/TransConnect.AssemblyInfoInputs.cache
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/obj/Debug/net8.0/TransConnect.AssemblyInfo.cs
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/obj/Debug/net8.0/TransConnect.csproj.CoreCompileInputs.cache
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/obj/Debug/net8.0/TransConnect.dll
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/obj/Debug/net8.0/refint/TransConnect.dll
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/obj/Debug/net8.0/TransConnect.pdb
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/bin/Debug/net8.0/TransConnect
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/bin/Debug/net8.0/TransConnect.deps.json
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/bin/Debug/net8.0/TransConnect.runtimeconfig.json
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/bin/Debug/net8.0/TransConnect.dll
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/bin/Debug/net8.0/TransConnect.pdb
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/obj/Debug/net8.0/TransConnect.genruntimeconfig.cache
+/Users/mailitg/Documents/ESILV/CSHARP/TransConnect/obj/Debug/net8.0/ref/TransConnect.dll

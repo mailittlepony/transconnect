@@ -1,0 +1,16 @@
+#A;B;km;traveltime;
+
+Paris;Rouen;133;1h45;
+Paris;Lyon;464;4h55;
+Paris;Angers;294;3h11;
+Angers;La Rochelle;187;2h20;
+La Rochelle;Bordeaux;183;1h38;
+Bordeaux;Biarritz;202;1h47;
+Biarritz;Toulouse;309;2h39;
+Pau;Toulouse;193;1h41;
+Toulouse;Nimes;289;2h00;
+Montpellier;Nimes;52;0h35;
+Nimes;Marseilles;126;1h13;
+Marseille;Avignon;99;1h00;
+Monaco;Marseille ;224;2h3;
+Toulon;Monaco;169;1h35;
