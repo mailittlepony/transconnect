@@ -106,9 +106,12 @@ namespace Maili
                     if (isNew)
                     {
                         TransConnect.orders.Add(temp_order);
-                        temp_order.Road.Driver.Order_nb ++;
-                        temp_order.Road.Driver.Availability = false;
-                        temp_order.Road.Driver.OrderTaken = DateTime.Now;
+                        if (temp_order.Road.Driver != null)
+                        {
+                            temp_order.Road.Driver.Order_nb ++;
+                            temp_order.Road.Driver.Availability = false;
+                            temp_order.Road.Driver.OrderTaken = DateTime.Now;
+                        } 
                         temp_order.Client.PurchaseAmount += temp_order.Price;
                     }
                     else

@@ -49,7 +49,7 @@ namespace Maili
 
         public override string ToString()
         {
-            return Date + " | " + Client.FirstName + " | " + Client.LastName + " | " + Road.Departure + " | " + Road.Arrival + " | " + Price ;
+            return Date + " | " + Client.FirstName + " | " + Client.LastName + " | " + Road.Departure + " | " + Road.Arrival + " | " + Price + "€";
         }
         
     }

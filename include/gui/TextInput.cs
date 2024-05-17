@@ -39,6 +39,7 @@ public class TextInput : Button
         Console.Clear();
         if (Panel.displayedPanel != null) Panel.displayedPanel.Display();
 
+         Console.CursorVisible = true;
         int x = Console.GetCursorPosition().Left;
         int y = Console.GetCursorPosition().Top;
         x+= text.Length + 3;
@@ -47,6 +48,7 @@ public class TextInput : Button
         string? str = Console.ReadLine();
         output = str == null ? "" : str;
         text = name + output;
+        Console.CursorVisible = false;
 
         actionlistener.ActionPerformed(button, key);
     }

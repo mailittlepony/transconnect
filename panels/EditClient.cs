@@ -1,4 +1,6 @@
 
+using System.Text.Json;
+
 namespace Maili
 {
     namespace Panels
@@ -82,12 +84,16 @@ namespace Maili
                     {
                         edited_client.Copy(temp_client);
                     }
+                    string editedClientFileStr = JsonSerializer.Serialize(TransConnect.clients);
+                    File.WriteAllText(TransConnect.ClientFilePath, editedClientFileStr);
                     Clients clientPanel = new Clients(TransConnect.clients);
                     Panel.Display(clientPanel);
                 }
                 else if (button.Id == "Supprimer")
                 {
                     TransConnect.clients.Remove(edited_client);
+                    string editedClientFileStr = JsonSerializer.Serialize(TransConnect.clients);
+                    File.WriteAllText(TransConnect.ClientFilePath, editedClientFileStr);
                     Clients clientPanel = new Clients(TransConnect.clients);
                     Panel.Display(clientPanel);
                 }

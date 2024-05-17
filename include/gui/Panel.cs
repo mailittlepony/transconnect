@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 public class Panel
 {
     public bool isDisplayed = true;
@@ -32,6 +34,7 @@ public class Panel
     public void Display()
     {
         Console.Clear();
+        Console.CursorVisible = false;
         ScrollUp();
         ScrollDown();
         Console.WriteLine(title + "\n");

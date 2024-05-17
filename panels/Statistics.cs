@@ -25,21 +25,61 @@ namespace Maili
                 }
                 else if (button.Id == "Order")
                 {
-                    
+                    Panel orderByMonthPanel = new Panel("Liste des commandes par mois");
+                    string[] months = { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", 
+                    "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre" };
+
+                    orderByMonthPanel.Add(new Button("Retour", new ActionListener((button, key) => 
+                    { 
+                        Statistics statPanel = new Statistics();
+                        Panel.Display(statPanel);
+                    })));
+
+                    foreach (string month in months)
+                    {
+                        orderByMonthPanel.Add(new Label(month + " : "));
+                        List<Order> orders = TransConnect.orders.FindAll(o => months[o.Date.Month - 1] == month);
+                        foreach (Order order in orders)
+                        {
+                            orderByMonthPanel.Add(new Label(order.ToString()));
+                        }
+                        orderByMonthPanel.Add(new Label(""));
+                    }
+
+                    Panel.Display(orderByMonthPanel);
                 }
                 else if (button.Id == "Mean value Clients")
                 {
                     Panel PasCompris = new Panel("Je n'ai pas compris la question");
-                    Add(new Button("Retour", new ActionListener((button, key) => 
+                    PasCompris.Add(new Button("Retour", new ActionListener((button, key) => 
                     { 
                         Statistics statPanel = new Statistics();
                         Panel.Display(statPanel);
                     })));
                     Panel.Display(PasCompris);
                 }
-                else if (button.Id == "List Order")
+                else if (button.Id == "List Orders")
                 {
-                    
+                    Panel listOrderPanel = new Panel("Liste des commandes par clients");
+
+                    listOrderPanel.Add(new Button("Retour", new ActionListener((button, key) => 
+                    { 
+                        Statistics statPanel = new Statistics();
+                        Panel.Display(statPanel);
+                    })));
+
+                    foreach (Client client in TransConnect.clients)
+                    {
+                        listOrderPanel.Add(new Label(client.FirstName + " " + client.LastName + " : "));
+                        List<Order> orders = TransConnect.orders.FindAll(o => o.Client.FirstName + " " + o.Client.LastName == client.FirstName + " " + client.LastName);
+                        foreach (Order order in orders)
+                        {
+                            listOrderPanel.Add(new Label(order.ToString()));
+                        }
+                        listOrderPanel.Add(new Label(""));
+                    }
+
+                    Panel.Display(listOrderPanel);
                 }
                 else if (button.Id == "Retour")
                 {
