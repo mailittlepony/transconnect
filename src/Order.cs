@@ -5,9 +5,9 @@ namespace Maili
 {
     public class Order
     {
-        public Client? Client { get; set; }
+        public Client Client { get; set; }
         public Road Road { get; set; }
-        public float Price { get; }
+        public float Price { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
 
         public Order()
@@ -30,17 +30,27 @@ namespace Maili
             Date = order.Date;
         }
 
+        public void Copy(Order copy)
+        {
+            Client = copy.Client;
+            Road = copy.Road;
+            Price = copy.Price;
+            Date = copy.Date;
+        }
         public static float MeanValue(List<Order> orders)
-            {
+        {
                 float s = 0;
                 foreach (Order order in orders)
                 {
                     s += order.Price;
                 }
                 return s/orders.Count();
-            }
+        }
 
-        //A completer: Une livraison effectuée suppose le paiement du client dans notre application 
+        public override string ToString()
+        {
+            return Date + " | " + Client.FirstName + " | " + Client.LastName + " | " + Road.Departure + " | " + Road.Arrival + " | " + Price ;
+        }
         
     }
 }

@@ -32,12 +32,13 @@ public class Home : Panel, IActionListener
         }
         else if (button.Id == "Commandes")
         {
-            Orders orders_panel = new Orders();
+            Orders orders_panel = new Orders(TransConnect.orders);
             Panel.Display(orders_panel);
         }
         else if (button.Id == "Autre")
         {
-            
+            Panel PasLeTemps = new Panel("Je n'ai pas eu le temps de finir");
+            Panel.Display(PasLeTemps);
         }
     }
 }

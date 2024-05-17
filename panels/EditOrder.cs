@@ -22,8 +22,13 @@ namespace Maili
                     edited_order = new Order();
                     isNew = true;
                 }
+                if (!isNew)
+                {
+                    Add(new Button("Supprimer la commande", this, "Supprimer"));
+                    Add(new Label(""));
+                }
 
-                Add(new TextInput("Client (nom prénom) : ", temp_order.Client == null ? "" : temp_order.Client.ToString(), this, "Client"));
+                Add(new TextInput("Client (prénom nom) : ", temp_order.Client == null ? "" : temp_order.Client.ToString(), this, "Client"));
                 Add(new TextInput("Ville de départ : ", temp_order.Road.Departure, this, "Depart"));
                 Add(new TextInput("Ville d'arrivée : ", temp_order.Road.Arrival, this, "Arrival"));
                 Add(new TextInput("Chauffeur : ", temp_order.Road.Driver == null ? "" : temp_order.Road.Driver.ToString(), this, "Driver"));
@@ -41,7 +46,7 @@ namespace Maili
             {
                 if (button.Id == "Client")
                 {
-                    temp_order.Client = TransConnect.clients.Find(c => { return c.LastName.ToUpper() + " " + c.FirstName.ToUpper() == ((TextInput)button).Output.ToUpper(); });
+                    temp_order.Client = TransConnect.clients.Find(c => c.FirstName.ToUpper() + " " + c.LastName.ToUpper() == ((TextInput)button).Output.ToUpper());
                     if (temp_order.Client == null) ((TextInput)button).Text = "Client inconnu. Veuillez d'abord le créer.";
                 }
                 else if (button.Id == "Depart")
@@ -92,15 +97,30 @@ namespace Maili
                 }
                 else if (button.Id == "OK")
                 {
-                    temp_order.Road.Driver.Order_nb ++;
-                    temp_order.Road.Driver.Availability = false;
-                    temp_order.Road.Driver.OrderTaken = DateTime.Now;
-                    TransConnect.orders.Add(new Order(temp_order)); 
+                    if (isNew)
+                    {
+                        TransConnect.orders.Add(temp_order);
+                        temp_order.Road.Driver.Order_nb ++;
+                        temp_order.Road.Driver.Availability = false;
+                        temp_order.Road.Driver.OrderTaken = DateTime.Now;
+                    }
+                    else
+                    {
+                        edited_order.Copy(temp_order);
+                    }
+                    Orders orders_panel = new Orders(TransConnect.orders);
+                    Panel.Display(orders_panel);
                 }
                 else if (button.Id == "Annuler")
                 {
-                    Home return_panel = new Home();
-                    Panel.Display(return_panel);
+                    Orders orders_panel = new Orders(TransConnect.orders);
+                    Panel.Display(orders_panel);
+                }
+                else if (button.Id == "Supprimer")
+                {
+                    TransConnect.orders.Remove(edited_order);
+                    Orders orderPanel = new Orders(TransConnect.orders);
+                    Panel.Display(orderPanel);
                 }
             }
         }
