@@ -5,12 +5,23 @@ namespace Maili
 {
     class TransConnect
     {
+        static public string ClientFilePath { get; } = "";
+        static public string OrderFilePath { get; } = "";
         public static List<Client> clients = new List<Client> 
         {
             new Client("Maîli", "Truong", DateTime.Now, "", "", "", 0),
             new Client("Stanley", "Truong", DateTime.Now, "", "", "", 0),
             new Client("Maxime", "Truong", DateTime.Now, "", "", "", 0),
         };
+
+        public static List<Vehicule> vehicules = new List<Vehicule>
+        {
+            new Vehicule("Camion frigorifique", 1.0f),
+            new Vehicule("Camion citerne", 0.50f),
+            new Vehicule("Camion benne", 0.2f),
+            new Vehicule("Voiture", 0.10f),
+        };
+        
         public static List<Order> orders = new List<Order>(); 
         public static Employee chef = new Employee("Mr","Dupond",DateTime.Now,"","","", 0, DateTime.Now, "", 0);
         public static Employee DirCom = new Employee("Mme","Fiesta",DateTime.Now,"","","",0, DateTime.Now, "", 0);

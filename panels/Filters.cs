@@ -59,7 +59,9 @@ namespace Maili
                 }
                 else if (button.Id == "PurchaseOrder")
                 {
-                    
+                    sortedClients = new List<Client>(TransConnect.clients.OrderBy(d => d.PurchaseAmount));
+                    Clients clientPanel = new Clients(sortedClients);
+                    Panel.Display(clientPanel);
                 }
             }
         }

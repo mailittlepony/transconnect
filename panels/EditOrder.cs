@@ -64,6 +64,11 @@ namespace Maili
                     else if (!temp_order.Road.Driver.Availability) button.Text = ((TextInput)button).Name + "Ce chauffeur n'est pas disponible veuillez en choisir un autre";
 
                 }
+                else if (button.Id == "Car")
+                {
+                    temp_order.Road.Vehicule = TransConnect.vehicules.Find(v => v.Type.ToUpper() == ((TextInput)button).Output.ToUpper());
+                    if (temp_order.Road.Vehicule == null) button.Text = ((TextInput)button).Name +  "Le véhicule n'a pas été trouvé";
+                }
                 else if (button.Id == "Calculate fees")
                 {
                     Label? fees_label = (Label?)components.Find(c => c.Id == "Fees");
@@ -73,7 +78,7 @@ namespace Maili
 
                     if (!Road.CityToIntMapping.ContainsKey(temp_order.Road.Departure) || !Road.CityToIntMapping.ContainsKey(temp_order.Road.Arrival))
                     {
-                        if (fees_label != null) fees_label.Text = "Please enter valid cities.";
+                        if (fees_label != null) fees_label.Text = "Merci de rentrer une ville valide.";
                         if (itinary_label != null) itinary_label.Text = "";
                         return;
                     }
@@ -82,9 +87,10 @@ namespace Maili
                     int dest = Road.CityToIntMapping[temp_order.Road.Arrival];
 
                     Road road = Dijkstra.GetShortestPath(matrix, src, dest);
-                    if (fees_label != null) fees_label.Text = "Shipping fees : ";
-                    //temp_order.Price =;
-                    //temp_order.Client.PurchaseAmount += temp_order.Price;
+                    temp_order.Road.Distance = road.Distance;
+                    temp_order.Road.Vertices = road.Vertices;
+                    temp_order.Price = road.Distance * (temp_order.Road.Vehicule == null ? 0 : temp_order.Road.Vehicule.PricePerKm);
+                    if (fees_label != null) fees_label.Text = "Shipping fees : " + temp_order.Price.ToString() + "€";
                     if (itinary_label != null)
                     {
                         itinary_label.Text = "Itinary : ";
@@ -103,6 +109,7 @@ namespace Maili
                         temp_order.Road.Driver.Order_nb ++;
                         temp_order.Road.Driver.Availability = false;
                         temp_order.Road.Driver.OrderTaken = DateTime.Now;
+                        temp_order.Client.PurchaseAmount += temp_order.Price;
                     }
                     else
                     {

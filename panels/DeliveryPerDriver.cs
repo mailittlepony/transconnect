@@ -9,6 +9,12 @@ namespace Maili
             {
                 Drivers = drivers;
 
+                Add(new Button("Retour", new ActionListener((button, key) => 
+                { 
+                    Statistics statPanel = new Statistics();
+                    Panel.Display(statPanel);
+                })));
+
                 if (Drivers != null)
                 {
                     foreach (Driver driver in Drivers) 
