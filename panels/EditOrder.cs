@@ -54,8 +54,9 @@ namespace Maili
                 }
                 else if (button.Id == "Driver")
                 {
-                    temp_order.Road.Driver = (Driver?)TransConnect.employees.Find(d => d.LastName.ToUpper() + " " + d.FirstName.ToUpper() == ((TextInput)button).Output.ToUpper());
-                    
+                    temp_order.Road.Driver = (Driver?)TransConnect.employees.Find(d => d.FirstName.ToUpper() + " " + d.LastName.ToUpper() == ((TextInput)button).Output.ToUpper());
+                    if (temp_order.Road.Driver == null) button.Text = ((TextInput)button).Name +  "Le chauffeur n'a pas été trouvé";
+                    else if (!temp_order.Road.Driver.Availability) button.Text = ((TextInput)button).Name + "Ce chauffeur n'est pas disponible veuillez en choisir un autre";
 
                 }
                 else if (button.Id == "Calculate fees")
@@ -82,7 +83,10 @@ namespace Maili
                 }
                 else if (button.Id == "OK")
                 {
-                    temp_order.Road.Driver.Order_nb ++; 
+                    temp_order.Road.Driver.Order_nb ++;
+                    temp_order.Road.Driver.Availability = false;
+                    temp_order.Road.Driver.OrderTaken = DateTime.Now;
+                    TransConnect.orders.Add(new Order(temp_order)); 
                 }
                 else if (button.Id == "Annuler")
                 {
