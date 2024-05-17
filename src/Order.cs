@@ -8,7 +8,7 @@ namespace Maili
         public Client? Client { get; set; }
         public Road Road { get; set; }
         public float Price { get; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
 
         public Order()
         {
@@ -16,11 +16,10 @@ namespace Maili
             Road = new Road();
         }
 
-        public Order(Client client, Road road, DateTime date)
+        public Order(Client client, Road road)
         {
             Client = client;
             Road = road;
-            Date = date;
         }
 
         public Order(Order order)

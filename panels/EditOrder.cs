@@ -61,16 +61,25 @@ namespace Maili
                 }
                 else if (button.Id == "Calculate fees")
                 {
+                    Label? fees_label = (Label?)components.Find(c => c.Id == "Fees");
+                    Label? itinary_label = (Label?)components.Find(c => c.Id == "Itinary");
 
                     int[,] matrix = Road.GetAdjencyMatrix(Road.GetRoadsFromCSV("res/distances.csv"), r => r.Distance);
+
+                    if (!Road.CityToIntMapping.ContainsKey(temp_order.Road.Departure) || !Road.CityToIntMapping.ContainsKey(temp_order.Road.Arrival))
+                    {
+                        if (fees_label != null) fees_label.Text = "Please enter valid cities.";
+                        if (itinary_label != null) itinary_label.Text = "";
+                        return;
+                    }
+
                     int src = Road.CityToIntMapping[temp_order.Road.Departure];
                     int dest = Road.CityToIntMapping[temp_order.Road.Arrival];
+
                     Road road = Dijkstra.GetShortestPath(matrix, src, dest);
-                    Label? fees_label = (Label?)components.Find(c => c.Id == "Fees");
                     if (fees_label != null) fees_label.Text = "Shipping fees : ";
                     //temp_order.Price =;
                     //temp_order.Client.PurchaseAmount += temp_order.Price;
-                    Label? itinary_label = (Label?)components.Find(c => c.Id == "Itinary");
                     if (itinary_label != null)
                     {
                         itinary_label.Text = "Itinary : ";
