@@ -59,7 +59,7 @@ namespace Maili
                 {
                     Panel Arbre = new Panel();
                     Arbre.Add(new Button("Retour",this, "retourEmployee"));
-                    Arbre.Add(new Label(Employee.GetOrganigramTree(TransConnect.chef)));
+                    Arbre.Add(new Label("\n" + Employee.GetOrganigramTree(TransConnect.chef)));
                     Panel.Display(Arbre);
                 }
                 else if (button.Id == "retourEmployee")

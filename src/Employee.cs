@@ -69,7 +69,7 @@ namespace Maili
         private static string GetOrganigramBranch(Employee employee, bool isLast, int padding)
         {
             int spacing = 8;
-            string str = employee.FirstName + " " + employee.LastName + "\n";
+            string str = employee.FirstName + " " + employee.LastName + " (" + employee.Job + ")" + "\n";
 
             foreach (Employee sub in employee.SubEmployees)
             {
@@ -77,10 +77,10 @@ namespace Maili
                 {
                 for (int i = 0; i < padding; i += spacing)
                 {
-                    if (isLast || (i == padding - spacing && i != 0))
-                    str += String.Concat(Enumerable.Repeat(" ", spacing));
+                    if (isLast && i == padding - spacing && i != 0)
+                        str += String.Concat(Enumerable.Repeat(" ", spacing));
                     else
-                    str += "\u2502" + String.Concat(Enumerable.Repeat(" ", spacing - 1));
+                        str += "\u2502" + String.Concat(Enumerable.Repeat(" ", spacing - 1));
                 }
                 if (j == 0) str += "\u2502\n";
                 }
