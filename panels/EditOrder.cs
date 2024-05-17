@@ -2,14 +2,18 @@ namespace Maili
 {
     namespace Panels
     {
+        // Panel for editing or creating orders
         public class EditOrder : Panel, IActionListener
         {
+            // Fields to manage temporary and edited orders
             Order temp_order;
             Order edited_order;
             private bool isNew;
 
-            public EditOrder(Order? order = null) : base(order == null ? "Créer une nouvelle commande" : "Modifier une commande")
+            // Constructor for creating EditOrder panel
+            public EditOrder(Order? order = null) : base(order == null ? "Create a New Order" : "Edit Order")
             {
+                // Initialize temporary and edited orders based on the provided order
                 if (order != null)
                 {
                     temp_order = new Order(order);
@@ -22,78 +26,97 @@ namespace Maili
                     edited_order = new Order();
                     isNew = true;
                 }
+
+                // Add components to the panel for user input
                 if (!isNew)
                 {
-                    Add(new Button("Supprimer la commande", this, "Supprimer"));
-                    Add(new Label(""));
+                    Add(new Button("Delete Order", this, "Delete")); // Option to delete the order
+                    Add(new Label("")); // Blank line for spacing
                 }
 
-                Add(new TextInput("Client (prénom nom) : ", temp_order.Client == null ? "" : temp_order.Client.ToString(), this, "Client"));
-                Add(new TextInput("Ville de départ : ", temp_order.Road.Departure, this, "Depart"));
-                Add(new TextInput("Ville d'arrivée : ", temp_order.Road.Arrival, this, "Arrival"));
-                Add(new TextInput("Chauffeur : ", temp_order.Road.Driver == null ? "" : temp_order.Road.Driver.ToString(), this, "Driver"));
-                Add(new TextInput("Véhicule : ", temp_order.Road.Vehicule == null ? "" : temp_order.Road.Vehicule.ToString(), this, "Car"));
-                Add(new Label(""));
-                Add(new Button("Calculer les frais de transport: ", this, "Calculate fees"));
+                // Add text inputs for order details
+                Add(new TextInput("Client (first name last name): ", temp_order.Client == null ? "" : temp_order.Client.ToString(), this, "Client"));
+                Add(new TextInput("Departure City: ", temp_order.Road.Departure, this, "Depart"));
+                Add(new TextInput("Arrival City: ", temp_order.Road.Arrival, this, "Arrival"));
+                Add(new TextInput("Driver: ", temp_order.Road.Driver == null ? "" : temp_order.Road.Driver.ToString(), this, "Driver"));
+                Add(new TextInput("Vehicle: ", temp_order.Road.Vehicule == null ? "" : temp_order.Road.Vehicule.ToString(), this, "Car"));
+                Add(new Label("")); // Blank line for spacing
+
+                // Add buttons for actions
+                Add(new Button("Calculate Shipping Fees: ", this, "Calculate fees"));
                 Add(new Label("", "Fees"));
-                Add(new Label("", "Itinary"));
-                Add(new Label(""));
-                Add(new Button("Annuler", this));
+                Add(new Label("", "Itinerary"));
+                Add(new Label("")); // Blank line for spacing
+                Add(new Button("Cancel", this));
                 Add(new Button("OK", this));
             }
 
+            // Method to handle button actions
             public void ActionPerformed(Button button, int key)
             {
+                // Handle actions based on button id
                 if (button.Id == "Client")
                 {
+                    // Update client based on user input
                     temp_order.Client = TransConnect.clients.Find(c => c.FirstName.ToUpper() + " " + c.LastName.ToUpper() == ((TextInput)button).Output.ToUpper());
-                    if (temp_order.Client == null) ((TextInput)button).Text = "Client inconnu. Veuillez d'abord le créer.";
+                    if (temp_order.Client == null) ((TextInput)button).Text = "Unknown client. Please create it first.";
                 }
                 else if (button.Id == "Depart")
                 {
+                    // Update departure city based on user input
                     temp_order.Road.Departure = ((TextInput)button).Output.ToUpper();
                 }
                 else if (button.Id == "Arrival")
                 {
+                    // Update arrival city based on user input
                     temp_order.Road.Arrival = ((TextInput)button).Output.ToUpper();
                 }
                 else if (button.Id == "Driver")
                 {
+                    // Update driver information based on user input
                     temp_order.Road.Driver = (Driver?)TransConnect.employees.Find(d => d.FirstName.ToUpper() + " " + d.LastName.ToUpper() == ((TextInput)button).Output.ToUpper());
-                    if (temp_order.Road.Driver == null) button.Text = ((TextInput)button).Name +  "Le chauffeur n'a pas été trouvé";
-                    else if (!temp_order.Road.Driver.Availability) button.Text = ((TextInput)button).Name + "Ce chauffeur n'est pas disponible veuillez en choisir un autre";
-
+                    if (temp_order.Road.Driver == null) button.Text = ((TextInput)button).Name + "Driver not found";
+                    else if (!temp_order.Road.Driver.Availability) button.Text = ((TextInput)button).Name + "This driver is not available, please choose another";
                 }
                 else if (button.Id == "Car")
                 {
+                    // Update vehicle information based on user input
                     temp_order.Road.Vehicule = TransConnect.vehicules.Find(v => v.Type.ToUpper() == ((TextInput)button).Output.ToUpper());
-                    if (temp_order.Road.Vehicule == null) button.Text = ((TextInput)button).Name +  "Le véhicule n'a pas été trouvé";
+                    if (temp_order.Road.Vehicule == null) button.Text = ((TextInput)button).Name + "Vehicle not found";
                 }
                 else if (button.Id == "Calculate fees")
                 {
+                    // Calculate shipping fees and display itinerary
                     Label? fees_label = (Label?)components.Find(c => c.Id == "Fees");
                     Label? itinary_label = (Label?)components.Find(c => c.Id == "Itinary");
 
+                    // Get adjacency matrix for road distances
                     int[,] matrix = Road.GetAdjencyMatrix(Road.GetRoadsFromCSV("res/distances.csv"), r => r.Distance);
 
+                    // Check if departure and arrival cities are valid
                     if (!Road.CityToIntMapping.ContainsKey(temp_order.Road.Departure) || !Road.CityToIntMapping.ContainsKey(temp_order.Road.Arrival))
                     {
-                        if (fees_label != null) fees_label.Text = "Merci de rentrer une ville valide.";
+                        if (fees_label != null) fees_label.Text = "Please enter a valid city.";
                         if (itinary_label != null) itinary_label.Text = "";
                         return;
                     }
 
+                    // Find shortest path using Dijkstra's algorithm
                     int src = Road.CityToIntMapping[temp_order.Road.Departure];
                     int dest = Road.CityToIntMapping[temp_order.Road.Arrival];
-
                     Road road = Dijkstra.GetShortestPath(matrix, src, dest);
+
+                    // Update order details with calculated values
                     temp_order.Road.Distance = road.Distance;
                     temp_order.Road.Vertices = road.Vertices;
-                    temp_order.Price = road.Distance * (temp_order.Road.Vehicule == null ? 0 : temp_order.Road.Vehicule.PricePerKm);
-                    if (fees_label != null) fees_label.Text = "Shipping fees : " + temp_order.Price.ToString() + "€";
+                    temp_order.Price = road.Distance * (temp_order.Road.Vehicule == null ? 0 : temp_order.Road.Vehicule.PricePerKm +
+                        (temp_order.Road.Driver == null ? 0 : temp_order.Road.Driver.HonoraryByKm));
+
+                    // Update UI labels with calculated values
+                    if (fees_label != null) fees_label.Text = "Shipping fees: " + temp_order.Price.ToString() + "€";
                     if (itinary_label != null)
                     {
-                        itinary_label.Text = "Itinary : ";
+                        itinary_label.Text = "Itinerary: ";
                         foreach (int v in road.Vertices)
                         {
                             itinary_label.Text += Road.IntToCityMapping[v] + " -> ";
@@ -103,31 +126,36 @@ namespace Maili
                 }
                 else if (button.Id == "OK")
                 {
+                    // Save or update the order
                     if (isNew)
                     {
                         TransConnect.orders.Add(temp_order);
                         if (temp_order.Road.Driver != null)
                         {
-                            temp_order.Road.Driver.Order_nb ++;
+                            temp_order.Road.Driver.Order_nb++;
                             temp_order.Road.Driver.Availability = false;
                             temp_order.Road.Driver.OrderTaken = DateTime.Now;
-                        } 
+                        }
                         temp_order.Client.PurchaseAmount += temp_order.Price;
                     }
                     else
                     {
                         edited_order.Copy(temp_order);
                     }
+
+                    // Display orders panel
                     Orders orders_panel = new Orders(TransConnect.orders);
                     Panel.Display(orders_panel);
                 }
                 else if (button.Id == "Annuler")
                 {
+                    // Cancel editing and display orders panel
                     Orders orders_panel = new Orders(TransConnect.orders);
                     Panel.Display(orders_panel);
                 }
                 else if (button.Id == "Supprimer")
                 {
+                    // Delete the order and display orders panel
                     TransConnect.orders.Remove(edited_order);
                     Orders orderPanel = new Orders(TransConnect.orders);
                     Panel.Display(orderPanel);

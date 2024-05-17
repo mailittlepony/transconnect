@@ -12,6 +12,8 @@ namespace Maili
         public int Id { get; }
 
         private static int count = 0;
+
+        // This constructor used by pair with the function Copy a bit below is used in the panel EditEmployee in order to clone an Employee
         public Employee(Employee copy)
         {
             NSS = copy.NSS;
@@ -60,44 +62,50 @@ namespace Maili
             count++;
             SubEmployees = new List<Employee>();
         }
- 
         public static string GetOrganigramTree(Employee employee)
         { 
+            // Return the organizational tree starting from the given employee
             return GetOrganigramBranch(employee, true, 0);
         }
 
         private static string GetOrganigramBranch(Employee employee, bool isLast, int padding)
         {
-            int spacing = 8;
-            string str = employee.FirstName + " " + employee.LastName + " (" + employee.Job + ")" + "\n";
+            int spacing = 8; // Define the spacing between nodes
+            string str = employee.FirstName + " " + employee.LastName + " (" + employee.Job + ")" + "\n"; // Start building the branch with employee information
 
+            // Traverse through subordinates of the employee
             foreach (Employee sub in employee.SubEmployees)
             {
+                // Add appropriate spacing and lines to represent the hierarchy
                 for (int j = 0; j < 2; ++j)
                 {
-                for (int i = 0; i < padding; i += spacing)
-                {
-                    if (isLast && i == padding - spacing && i != 0)
-                        str += String.Concat(Enumerable.Repeat(" ", spacing));
-                    else
-                        str += "\u2502" + String.Concat(Enumerable.Repeat(" ", spacing - 1));
-                }
-                if (j == 0) str += "\u2502\n";
+                    for (int i = 0; i < padding; i += spacing)
+                    {
+                        if (isLast && i == padding - spacing && i != 0)
+                            str += String.Concat(Enumerable.Repeat(" ", spacing)); // Add spaces for last node in the branch
+                        else
+                            str += "\u2502" + String.Concat(Enumerable.Repeat(" ", spacing - 1)); // Add vertical line with spacing
+                    }
+                    if (j == 0) str += "\u2502\n"; // Add vertical line at the end of each spacing iteration
                 }
 
-                if (sub.Id == employee.SubEmployees.Last().Id) str += "\u2514";
-                else str += "\u251C";
+                // Add appropriate line character based on position in the hierarchy
+                if (sub.Id == employee.SubEmployees.Last().Id) str += "\u2514"; // Last node in the branch
+                else str += "\u251C"; // Intermediate node
 
-                for (int i = 0; i < spacing - 1; i++) str += "\u2500";
-                str += " " + GetOrganigramBranch(sub, sub.Id == employee.SubEmployees.Last().Id, padding + spacing);
+                // Add horizontal line and recursively call for subordinates
+                for (int i = 0; i < spacing - 1; i++) str += "\u2500"; // Add horizontal line
+                str += " " + GetOrganigramBranch(sub, sub.Id == employee.SubEmployees.Last().Id, padding + spacing); // Recursively call for subordinates
             }
 
-            return str;
+            return str; // Return the constructed branch
         }
 
         public override string ToString()
         {
+            // Return employee information as a string
             return NSS + " | " + HiringDate + " | " + base.ToString() + " | " + Job + " | " + salary;
         }
     }
 }
+

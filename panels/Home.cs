@@ -8,8 +8,8 @@ public class Home : Panel, IActionListener
     {
         Add(new Button("Clients", this));
         Add(new Button("Salariés", this));
-        Add(new Button("Statistiques", this));
         Add(new Button("Commandes", this));
+        Add(new Button("Statistiques", this));
         Add(new Button("Autre", this));
     }
 

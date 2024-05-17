@@ -1,7 +1,7 @@
 
 # TransConnect
 
-> A C++ console application for managing your society.
+> A C# console application for managing your society.
 
 ## Install
 

@@ -27,11 +27,11 @@ namespace Maili
         public static Employee Com2 = new Employee("Mme","Fermi",DateTime.Now,"","","",0, DateTime.Now, "Commerciale", 0);
         public static Employee ChefEq1 = new Employee("Mr","Royal",DateTime.Now,"","","",0, DateTime.Now, "Chef d'équipe", 0);
         public static Employee ChefEq2 = new Employee("Mme","Prince",DateTime.Now,"","","",0, DateTime.Now, "Chef d'équipe", 0);
-        public static Driver Chauff1 = new Driver("Mr","Romu",DateTime.Now,"","","",0, DateTime.Now, 0, true, 0);
-        public static Driver Chauff2 = new Driver("Mr","Romi",DateTime.Now,"","","",0, DateTime.Now, 0, true, 0);
-        public static Driver Chauff3 = new Driver("Mme","Roma",DateTime.Now,"","","",0, DateTime.Now, 0, false, 4);
-        public static Driver Chauff4 = new Driver("Mr","Rome",DateTime.Now,"","","",0, DateTime.Now, 0, false, 8);
-        public static Driver Chauff5 = new Driver("Mr","Rimou",DateTime.Now,"","","",0, DateTime.Now, 0, true, 9);
+        public static Driver Chauff1 = new Driver("Mr","Romu",DateTime.Now,"","","",0, DateTime.Now, 0, true, 0.2f, 0);
+        public static Driver Chauff2 = new Driver("Mr","Romi",DateTime.Now,"","","",0, DateTime.Now, 0, true, 0.3f, 0);
+        public static Driver Chauff3 = new Driver("Mme","Roma",DateTime.Now,"","","",0, DateTime.Now, 0, true, 0.4f, 4);
+        public static Driver Chauff4 = new Driver("Mr","Rome",DateTime.Now,"","","",0, DateTime.Now, 0, false, 0.2f, 8);
+        public static Driver Chauff5 = new Driver("Mr","Rimou",DateTime.Now,"","","",0, DateTime.Now, 0, true, 0.5f, 9);
         public static Employee Form = new Employee("Mme","Couleur",DateTime.Now,"","","",0, DateTime.Now, "Formation", 0);
         public static Employee Contrats = new Employee("Mme","ToutLeMonde",DateTime.Now,"","","",0, DateTime.Now, "Contrats", 0);
         public static Employee DirCompt = new Employee("Mr","Picsou",DateTime.Now,"","","",0, DateTime.Now, "Direction comptable", 0);
