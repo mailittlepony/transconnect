@@ -9,6 +9,7 @@ namespace Maili
         public float salary { get; set;} = 0;
 
         public List<Employee> SubEmployees { get; set; } 
+        public Employee? Superior { get; set; }
         public int Id { get; }
 
         private static int count = 0;

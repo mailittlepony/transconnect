@@ -7,7 +7,6 @@ namespace Maili
         {
             private Employee temp_employee;
             private Employee edited_employee;
-            private Employee? superior = new Employee("","");
             private bool isNew;
 
             public EditEmployee(Employee? employee = null) : base(employee == null ? "Ajouter un nouveau salarié" : "Modifier un salarié")
@@ -67,7 +66,11 @@ namespace Maili
                 else if (button.Id == "Sup")
                 {
                     string[] sub = ((TextInput)button).Output.Split(' ');
-                    if (sub.Length == 2) superior = TransConnect.employees.Find(x => x.LastName == sub[1] && x.FirstName == sub[0]);
+                    if (sub.Length == 2) 
+                    {
+                        temp_employee.Superior = TransConnect.employees.Find(x => x.LastName == sub[1] && x.FirstName == sub[0]);
+                        if (temp_employee.Superior == null) ((TextInput)button).Text = ((TextInput)button).Name + "employée inconnu.";
+                    }
                 }
                 else if (button.Id == "Date")
                 {
@@ -103,7 +106,7 @@ namespace Maili
                     if (isNew)
                     {
                         TransConnect.employees.Add(temp_employee);
-                        if ( superior != null) superior.SubEmployees.Add(temp_employee);
+                        if ( temp_employee.Superior != null) temp_employee.Superior.SubEmployees.Add(temp_employee);
                     }
                     else
                     {
@@ -115,6 +118,7 @@ namespace Maili
                 else if (button.Id == "Supprimer")
                 {
                     TransConnect.employees.Remove(edited_employee);
+                    if (edited_employee.Superior != null) edited_employee.Superior.SubEmployees.Remove(edited_employee);
                     Employees employeePanel = new Employees(TransConnect.employees);
                     Panel.Display(employeePanel);
                 }

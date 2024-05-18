@@ -38,6 +38,11 @@ public class Home : Panel, IActionListener
         else if (button.Id == "Autre")
         {
             Panel PasLeTemps = new Panel("Je n'ai pas eu le temps de finir");
+            PasLeTemps.Add(new Button("Retour", new ActionListener((button, key) => 
+                    { 
+                        Home home = new Home();
+                        Panel.Display(home);
+                    })));
             Panel.Display(PasLeTemps);
         }
     }

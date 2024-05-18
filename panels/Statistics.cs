@@ -7,7 +7,7 @@ namespace Maili
             public Statistics() : base("Statistiques")
             {
                 Add(new Button("Retour", this));
-                Add(new Label("Moyenne des prix des commandes : " + Order.MeanValue(TransConnect.orders).ToString()));
+                Add(new Label("Moyenne des prix des commandes : " + (TransConnect.orders.Count > 0 ? Order.MeanValue(TransConnect.orders).ToString() : "aucune commande.")));
                 Add(new Button("Nombre de livraison effectués par chauffeurs", this, "Delivery"));
                 Add(new Button("Commandes par période de temps", this, "Order"));
                 Add(new Button("Moyenne des comptes clients", this, "Mean value Clients"));

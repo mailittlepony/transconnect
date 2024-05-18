@@ -11,7 +11,7 @@ namespace Maili
             private bool isNew;
 
             // Constructor for creating EditOrder panel
-            public EditOrder(Order? order = null) : base(order == null ? "Create a New Order" : "Edit Order")
+            public EditOrder(Order? order = null) : base(order == null ? "Passer une commande" : "Modifier une commande")
             {
                 // Initialize temporary and edited orders based on the provided order
                 if (order != null)
@@ -30,24 +30,24 @@ namespace Maili
                 // Add components to the panel for user input
                 if (!isNew)
                 {
-                    Add(new Button("Delete Order", this, "Delete")); // Option to delete the order
+                    Add(new Button("Supprimer la commande", this, "Delete")); // Option to delete the order
                     Add(new Label("")); // Blank line for spacing
                 }
 
                 // Add text inputs for order details
-                Add(new TextInput("Client (first name last name): ", temp_order.Client == null ? "" : temp_order.Client.ToString(), this, "Client"));
-                Add(new TextInput("Departure City: ", temp_order.Road.Departure, this, "Depart"));
-                Add(new TextInput("Arrival City: ", temp_order.Road.Arrival, this, "Arrival"));
-                Add(new TextInput("Driver: ", temp_order.Road.Driver == null ? "" : temp_order.Road.Driver.ToString(), this, "Driver"));
-                Add(new TextInput("Vehicle: ", temp_order.Road.Vehicule == null ? "" : temp_order.Road.Vehicule.ToString(), this, "Car"));
+                Add(new TextInput("Client (prenom nom): ", temp_order.Client == null ? "" : temp_order.Client.ToString(), this, "Client"));
+                Add(new TextInput("Ville de départ: ", temp_order.Road.Departure, this, "Depart"));
+                Add(new TextInput("Ville d'arrivée: ", temp_order.Road.Arrival, this, "Arrival"));
+                Add(new TextInput("Chauffeur: ", temp_order.Road.Driver == null ? "" : temp_order.Road.Driver.ToString(), this, "Driver"));
+                Add(new TextInput("Véhicule: ", temp_order.Road.Vehicule == null ? "" : temp_order.Road.Vehicule.ToString(), this, "Car"));
                 Add(new Label("")); // Blank line for spacing
 
                 // Add buttons for actions
-                Add(new Button("Calculate Shipping Fees: ", this, "Calculate fees"));
+                Add(new Button("Calculer les frais de port ", this, "Calculate fees"));
                 Add(new Label("", "Fees"));
-                Add(new Label("", "Itinerary"));
+                Add(new Label("", "Itinary"));
                 Add(new Label("")); // Blank line for spacing
-                Add(new Button("Cancel", this));
+                Add(new Button("Annuler", this));
                 Add(new Button("OK", this));
             }
 
@@ -59,7 +59,7 @@ namespace Maili
                 {
                     // Update client based on user input
                     temp_order.Client = TransConnect.clients.Find(c => c.FirstName.ToUpper() + " " + c.LastName.ToUpper() == ((TextInput)button).Output.ToUpper());
-                    if (temp_order.Client == null) ((TextInput)button).Text = "Unknown client. Please create it first.";
+                    if (temp_order.Client == null) ((TextInput)button).Text = ((TextInput)button).Name + "client inconnu. Veuillez d'abord le créer.";
                 }
                 else if (button.Id == "Depart")
                 {
@@ -75,14 +75,14 @@ namespace Maili
                 {
                     // Update driver information based on user input
                     temp_order.Road.Driver = (Driver?)TransConnect.employees.Find(d => d.FirstName.ToUpper() + " " + d.LastName.ToUpper() == ((TextInput)button).Output.ToUpper());
-                    if (temp_order.Road.Driver == null) button.Text = ((TextInput)button).Name + "Driver not found";
-                    else if (!temp_order.Road.Driver.Availability) button.Text = ((TextInput)button).Name + "This driver is not available, please choose another";
+                    if (temp_order.Road.Driver == null) button.Text = ((TextInput)button).Name + "chauffeur inconnu. Veuillez d'abord le créer.";
+                    else if (!temp_order.Road.Driver.Availability) button.Text = ((TextInput)button).Name + "ce chauffeur est indisponible.";
                 }
                 else if (button.Id == "Car")
                 {
                     // Update vehicle information based on user input
                     temp_order.Road.Vehicule = TransConnect.vehicules.Find(v => v.Type.ToUpper() == ((TextInput)button).Output.ToUpper());
-                    if (temp_order.Road.Vehicule == null) button.Text = ((TextInput)button).Name + "Vehicle not found";
+                    if (temp_order.Road.Vehicule == null) button.Text = ((TextInput)button).Name + "type de véhicule innexistant";
                 }
                 else if (button.Id == "Calculate fees")
                 {
@@ -96,7 +96,7 @@ namespace Maili
                     // Check if departure and arrival cities are valid
                     if (!Road.CityToIntMapping.ContainsKey(temp_order.Road.Departure) || !Road.CityToIntMapping.ContainsKey(temp_order.Road.Arrival))
                     {
-                        if (fees_label != null) fees_label.Text = "Please enter a valid city.";
+                        if (fees_label != null) fees_label.Text = "Merci de rentrer des villes valides";
                         if (itinary_label != null) itinary_label.Text = "";
                         return;
                     }
@@ -113,10 +113,10 @@ namespace Maili
                         (temp_order.Road.Driver == null ? 0 : temp_order.Road.Driver.HonoraryByKm));
 
                     // Update UI labels with calculated values
-                    if (fees_label != null) fees_label.Text = "Shipping fees: " + temp_order.Price.ToString() + "€";
+                    if (fees_label != null) fees_label.Text = "Frais de port: " + temp_order.Price.ToString() + "€";
                     if (itinary_label != null)
                     {
-                        itinary_label.Text = "Itinerary: ";
+                        itinary_label.Text = "Itinéraire: ";
                         foreach (int v in road.Vertices)
                         {
                             itinary_label.Text += Road.IntToCityMapping[v] + " -> ";
