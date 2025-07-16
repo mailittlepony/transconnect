@@ -9,8 +9,8 @@
 - .NET Framework (version > 8.0)
 
 ```bash
-git clone https://github.com/MailiTruong/TransConnect.git
-cd TransConnect
+git clone https://github.com/mailittlepony/transconnect.git
+cd transconnect
 dotnet run
 ```
 
